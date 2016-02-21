@@ -23,7 +23,12 @@
         <activity
             android:name=".activites.CarsActivity"
             android:label="@string/title_activity_cars"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activites.MainActivity" />
+
+        </activity>
     </application>
 
 </manifest>

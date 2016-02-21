@@ -27,9 +27,16 @@
             <include
                 android:id="@+id/app_bar"
                 layout="@layout/app_bar" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_send"
+                android:onClick="sendMessage" />
         </LinearLayout>
+
 
     </android.support.design.widget.CoordinatorLayout>
 
-
 </android.support.v4.widget.DrawerLayout>
+

@@ -1,5 +1,16 @@
 <resources>
-    <string name="app_name">Carzz</string>
+    <string name="app_name">Carzz App</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_cars">CarsActivity</string>
+    <string name="title_activity_cars">Cars Activity</string>
+    <string name="button_send">Fetch Prius Details</string>
+
+    <string-array name="tabs">
+        <item>Gallery</item>
+        <item>Features</item>
+        <item>Models</item>
+        <item>Specs</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
