@@ -2,21 +2,44 @@ package com.example.lenovo.carzz.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
 import com.example.lenovo.carzz.R;
+import com.example.lenovo.carzz.adapters.GalleryAdapter;
+import com.example.lenovo.carzz.callbacks.GalleryLoadedListner;
+import com.example.lenovo.carzz.pojo.Gallery;
+import com.example.lenovo.carzz.tasks.TaskLoadCarsGallery;
 
-public class galleryFragment extends Fragment {
+public class galleryFragment extends Fragment implements GalleryLoadedListner, SwipeRefreshLayout.OnRefreshListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String STATE_GALLERY = "state_gallery";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private TextView onVolleyError;
+    private Gallery gallery;
+    private RecyclerView galleryList;
+    private GalleryAdapter galleryAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
 
     public galleryFragment() {
         // Required empty public constructor
@@ -53,6 +76,60 @@ public class galleryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_gallery, container, false);
+        View view = inflater.inflate(R.layout.fragment_gallery, container, false);
+        onVolleyError = (TextView) view.findViewById(R.id.textVolleyError);
+        galleryList = (RecyclerView) view.findViewById(R.id.listGalleryImages);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeGallery);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        galleryList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        galleryAdapter = new GalleryAdapter(getActivity());
+        galleryList.setAdapter(galleryAdapter);
+        if (savedInstanceState != null) {
+            gallery = savedInstanceState.getParcelable(STATE_GALLERY);
+        } else {
+            new TaskLoadCarsGallery(this).execute();
+        }
+        if (gallery == null)
+            gallery = new Gallery();
+        galleryAdapter.setGallery(gallery);
+        return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(STATE_GALLERY, gallery);
+    }
+
+    private void handelVolleyError(VolleyError error) {
+        onVolleyError.setVisibility(View.VISIBLE);
+        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+            onVolleyError.setText(R.string.errorTimeOut);
+        } else if (error instanceof AuthFailureError) {
+            onVolleyError.setText(R.string.authFailure);
+        } else if (error instanceof ServerError) {
+            onVolleyError.setText(R.string.serverError);
+        } else if (error instanceof NetworkError) {
+            onVolleyError.setText(R.string.netConError);
+        } else if (error instanceof ParseError) {
+            onVolleyError.setText(R.string.parseError);
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        new TaskLoadCarsGallery(this).execute();
+    }
+
+    @Override
+    public void onGalleryLoadedlistner(Gallery gallery) {
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+        this.gallery = new Gallery();
+        this.gallery.setId(gallery.getId());
+        this.gallery.setCarName(gallery.getCarName());
+        this.gallery.setImageList(gallery.getImageList());
+        galleryAdapter.setGallery(this.gallery);
     }
 }

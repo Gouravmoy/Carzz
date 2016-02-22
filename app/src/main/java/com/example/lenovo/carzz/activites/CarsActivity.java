@@ -9,8 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.lenovo.carzz.R;
-import com.example.lenovo.carzz.fragments.featuresFragment;
 import com.example.lenovo.carzz.fragments.galleryFragment;
+import com.example.lenovo.carzz.fragments.featuresFragment;
 import com.example.lenovo.carzz.fragments.modelsFragment;
 import com.example.lenovo.carzz.fragments.specsFragment;
 import com.example.lenovo.carzz.views.SlidingTabLayout;
