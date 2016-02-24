@@ -16,6 +16,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.example.lenovo.carzz.R;
 import com.example.lenovo.carzz.activites.FullScreenViewActivity;
+import com.example.lenovo.carzz.network.VolleyImageLoader;
 import com.example.lenovo.carzz.network.VolleySingleton;
 import com.example.lenovo.carzz.pojo.Gallery;
 import com.example.lenovo.carzz.pojo.Image;
@@ -31,6 +32,7 @@ public class GalleryAdapter extends BaseAdapter {
     private VolleySingleton volleySingleton;
     private ImageLoader imageLoader;
     private Context mContext;
+    VolleyImageLoader volleyImageLoader;
 
     public void setGallery(Gallery gallery) {
         this.gallery = gallery;
@@ -105,16 +107,15 @@ public class GalleryAdapter extends BaseAdapter {
         String zoomUrl = image.getProfile();
 
 
-        NetworkImageView networkImageView = getImage(profileUrl);
+        NetworkImageView networkImageView=new NetworkImageView(mContext); //= getImage(profileUrl);
+        volleyImageLoader = new VolleyImageLoader(networkImageView);
+        volleyImageLoader.getImage(profileUrl);
+
+        networkImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        networkImageView.setLayoutParams(new GridView.LayoutParams(400, 300));
+
         networkImageView.setTag(profileUrl);
         networkImageView.setOnClickListener(new OnImageClickListener(zoomUrl));
-        /*networkImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String id = (Integer) v.getTag();
-                zoomImageFromThumb(arg0, id);
-            }
-        });*/
 
         /*TextView textView = new TextView(mContext);
         textView.setText("Gourav");*/

@@ -1,29 +1,18 @@
 package com.example.lenovo.carzz.activites;
 
-import android.content.Context;
-import android.os.PersistableBundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.example.lenovo.carzz.MyApplication;
 import com.example.lenovo.carzz.R;
-import com.example.lenovo.carzz.adapters.GalleryAdapter;
-import com.example.lenovo.carzz.extras.Constants;
 import com.example.lenovo.carzz.extras.TouchImageView;
-import com.example.lenovo.carzz.extras.Utils;
-import com.example.lenovo.carzz.logging.L;
 import com.example.lenovo.carzz.network.VolleySingleton;
+import com.example.lenovo.carzz.network.VolleyImageLoader;
 
 import static com.example.lenovo.carzz.adapters.GalleryAdapter.ZOOM_URL;
-import static com.example.lenovo.carzz.extras.Constants.NA;
 
 public class FullScreenViewActivity extends AppCompatActivity {
 
@@ -32,6 +21,7 @@ public class FullScreenViewActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ImageLoader imageLoader;
     private VolleySingleton volleySingleton;
+    private VolleyImageLoader volleyImageLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,27 +36,10 @@ public class FullScreenViewActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String url = extras.getString(ZOOM_URL);
-            getZoomImage(url);
+            volleyImageLoader = new VolleyImageLoader(imageView);
+            volleyImageLoader.getImage(url);
         }
 
-    }
-
-    private void getZoomImage(String url) {
-        volleySingleton = VolleySingleton.getinstance();
-        imageLoader = volleySingleton.getImageLoader();
-        if (!url.equals(NA)) {
-            imageLoader.get(url, new ImageLoader.ImageListener() {
-                @Override
-                public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                    imageView.setImageBitmap(response.getBitmap());
-                    L.m("Zoom Image Fetched!");
-                }
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    L.t(MyApplication.getAppContext(), "Failed to Load Image");
-                }
-            });
-        }
     }
 
     @Override
