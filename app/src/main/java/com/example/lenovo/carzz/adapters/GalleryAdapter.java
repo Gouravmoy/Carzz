@@ -1,14 +1,21 @@
 package com.example.lenovo.carzz.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.example.lenovo.carzz.MyApplication;
 import com.example.lenovo.carzz.R;
 import com.example.lenovo.carzz.extras.Constants;
@@ -22,12 +29,13 @@ import static com.example.lenovo.carzz.extras.Constants.NA;
 /**
  * Created by lenovo on 2/22/2016.
  */
-public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolderGallery> {
+public class GalleryAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     private Gallery gallery = new Gallery();
     private VolleySingleton volleySingleton;
     private ImageLoader imageLoader;
+    private Context mContext;
 
     public void setGallery(Gallery gallery) {
         this.gallery = gallery;
@@ -35,12 +43,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     }
 
     public GalleryAdapter(Context context) {
+        mContext = context;
         inflater = LayoutInflater.from(context);
         volleySingleton = VolleySingleton.getinstance();
         imageLoader = volleySingleton.getImageLoader();
     }
 
-    @Override
+    /*@Override
     public ViewHolderGallery onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.custom_gallery, parent, false);
         ViewHolderGallery viewHolderGallery = new ViewHolderGallery(view);
@@ -68,19 +77,119 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
                 }
             });
         }
+    }*/
+
+    /*@Override
+    public int getItemCount() {
+        return gallery.getImageList().size();
+    }*/
+
+    @Override
+    public int getCount() {
+        return gallery.getImageList().size();
+        //return mThumbIds.length;
     }
 
     @Override
-    public int getItemCount() {
-        return gallery.getImageList().size();
+    public Object getItem(int position) {
+        return null;
     }
 
-    public static class ViewHolderGallery extends RecyclerView.ViewHolder {
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ImageView imageView;
+        LinearLayout linearLayout = new LinearLayout(mContext);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        Image image = gallery.getImageList().get(position);
+        String imageUrl = image.getProfile();
+
+        NetworkImageView networkImageView = getImage(imageUrl);
+        networkImageView.setTag(imageUrl);
+        /*networkImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = (Integer) v.getTag();
+                zoomImageFromThumb(arg0, id);
+            }
+        });*/
+
+        TextView textView = new TextView(mContext);
+        textView.setText("Gourav");
+
+        linearLayout.addView(textView);
+        linearLayout.addView(networkImageView);
+
+        return linearLayout;
+
+
+        /*if (convertView == null) {
+            imageView = new ImageView(mContext);
+            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setPadding(8, 8, 8, 8);
+        } else {
+            imageView = (ImageView) convertView;
+        }
+        Image image = gallery.getImageList().get(position);
+        String imageUrl = image.getProfile();
+        if (imageView != null) {
+            imageView.setImageBitmap(loadGridImage(imageUrl, imageView));
+            //imageView.setImageResource(mThumbIds[position]);
+        }
+        return imageView;*/
+    }
+
+    @NonNull
+    private NetworkImageView getImage(String imageUrl) {
+        NetworkImageView networkImageView = new NetworkImageView(mContext);
+
+        imageLoader.get(imageUrl, ImageLoader.getImageListener(networkImageView, R.mipmap.ic_launcher, android.R.drawable.ic_dialog_alert));
+        networkImageView.setImageUrl(imageUrl, imageLoader);
+
+        networkImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        networkImageView.setLayoutParams(new GridView.LayoutParams(200, 200));
+        return networkImageView;
+    }
+
+    /*private Bitmap loadGridImage(String imageUrl, ImageView imageView) {
+        final Bitmap[] bitmap = new Bitmap[1];
+        if (!imageUrl.equals(NA)) {
+            imageLoader.get(imageUrl, new ImageLoader.ImageListener() {
+                @Override
+                public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+                    L.m("Image Fetched");
+                    bitmap[0] = response.getBitmap();
+                }
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    L.t(MyApplication.getAppContext(), "Failed to Load Image");
+                }
+            });
+        }
+        return bitmap[0];
+    }*/
+
+    public Integer[] mThumbIds = {
+           R.mipmap.dog,
+            R.mipmap.ic_launcher,
+            R.mipmap.ic_launcher,
+            R.mipmap.ic_launcher,
+            R.mipmap.ic_launcher
+    };
+
+
+    /*public static class ViewHolderGallery extends RecyclerView.ViewHolder {
         ImageView imageView;
 
         public ViewHolderGallery(View itemView) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.galleryImage);
         }
-    }
+    }*/
 }

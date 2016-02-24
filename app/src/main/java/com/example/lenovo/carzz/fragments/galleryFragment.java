@@ -3,11 +3,10 @@ package com.example.lenovo.carzz.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -36,7 +35,8 @@ public class galleryFragment extends Fragment implements GalleryLoadedListner, S
 
     private TextView onVolleyError;
     private Gallery gallery;
-    private RecyclerView galleryList;
+    //private RecyclerView galleryList;
+    private GridView galleryGridView;
     private GalleryAdapter galleryAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -78,12 +78,14 @@ public class galleryFragment extends Fragment implements GalleryLoadedListner, S
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_gallery, container, false);
         onVolleyError = (TextView) view.findViewById(R.id.textVolleyError);
-        galleryList = (RecyclerView) view.findViewById(R.id.listGalleryImages);
+        //galleryList = (RecyclerView) view.findViewById(R.id.listGalleryImages);
+        galleryGridView = (GridView) view.findViewById(R.id.gridview);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeGallery);
         swipeRefreshLayout.setOnRefreshListener(this);
-        galleryList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //galleryList.setLayoutManager(new LinearLayoutManager(getActivity()));
         galleryAdapter = new GalleryAdapter(getActivity());
-        galleryList.setAdapter(galleryAdapter);
+        //galleryList.setAdapter(galleryAdapter);
+        galleryGridView.setAdapter(galleryAdapter);
         if (savedInstanceState != null) {
             gallery = savedInstanceState.getParcelable(STATE_GALLERY);
         } else {
@@ -92,6 +94,15 @@ public class galleryFragment extends Fragment implements GalleryLoadedListner, S
         if (gallery == null)
             gallery = new Gallery();
         galleryAdapter.setGallery(gallery);
+        /*galleryGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(MyApplication.getAppContext(), SingleViewActivity.class);
+                // Pass image index
+                i.putExtra("id", position);
+                startActivity(i);
+            }
+        });*/
         return view;
     }
 
