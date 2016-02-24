@@ -1,8 +1,10 @@
 package com.example.lenovo.carzz.fragments;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,8 @@ import com.android.volley.VolleyError;
 import com.example.lenovo.carzz.R;
 import com.example.lenovo.carzz.adapters.GalleryAdapter;
 import com.example.lenovo.carzz.callbacks.GalleryLoadedListner;
+import com.example.lenovo.carzz.extras.Constants;
+import com.example.lenovo.carzz.extras.Utils;
 import com.example.lenovo.carzz.pojo.Gallery;
 import com.example.lenovo.carzz.tasks.TaskLoadCarsGallery;
 
@@ -39,6 +43,7 @@ public class galleryFragment extends Fragment implements GalleryLoadedListner, S
     private GridView galleryGridView;
     private GalleryAdapter galleryAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private int columnWidth;
 
 
     public galleryFragment() {
@@ -80,6 +85,7 @@ public class galleryFragment extends Fragment implements GalleryLoadedListner, S
         onVolleyError = (TextView) view.findViewById(R.id.textVolleyError);
         //galleryList = (RecyclerView) view.findViewById(R.id.listGalleryImages);
         galleryGridView = (GridView) view.findViewById(R.id.gridview);
+        InitilizeGridLayout();
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeGallery);
         swipeRefreshLayout.setOnRefreshListener(this);
         //galleryList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -142,5 +148,21 @@ public class galleryFragment extends Fragment implements GalleryLoadedListner, S
         this.gallery.setCarName(gallery.getCarName());
         this.gallery.setImageList(gallery.getImageList());
         galleryAdapter.setGallery(this.gallery);
+    }
+
+    private void InitilizeGridLayout() {
+        Resources r = getResources();
+        float padding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                Constants.GRID_PADDING, r.getDisplayMetrics());
+
+        columnWidth = (int) ((Utils.getScreenWidth() - ((Constants.NUM_OF_COLUMNS + 1) * padding)) / Constants.NUM_OF_COLUMNS);
+
+        galleryGridView.setNumColumns(Constants.NUM_OF_COLUMNS);
+        galleryGridView.setColumnWidth(columnWidth);
+        galleryGridView.setStretchMode(GridView.NO_STRETCH);
+        galleryGridView.setPadding((int) padding, (int) padding, (int) padding,
+                (int) padding);
+        galleryGridView.setHorizontalSpacing((int) padding);
+        galleryGridView.setVerticalSpacing((int) padding);
     }
 }

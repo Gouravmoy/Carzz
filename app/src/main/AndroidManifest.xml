@@ -29,6 +29,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activites.MainActivity" />
         </activity>
+        <activity android:name=".activites.FullScreenViewActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activites.CarsActivity" />
+        </activity>
     </application>
 
 </manifest>

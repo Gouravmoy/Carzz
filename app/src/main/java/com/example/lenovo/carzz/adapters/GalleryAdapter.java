@@ -1,9 +1,8 @@
 package com.example.lenovo.carzz.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,24 +12,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.example.lenovo.carzz.MyApplication;
 import com.example.lenovo.carzz.R;
-import com.example.lenovo.carzz.extras.Constants;
-import com.example.lenovo.carzz.logging.L;
+import com.example.lenovo.carzz.activites.FullScreenViewActivity;
 import com.example.lenovo.carzz.network.VolleySingleton;
 import com.example.lenovo.carzz.pojo.Gallery;
 import com.example.lenovo.carzz.pojo.Image;
-
-import static com.example.lenovo.carzz.extras.Constants.NA;
 
 /**
  * Created by lenovo on 2/22/2016.
  */
 public class GalleryAdapter extends BaseAdapter {
 
+    public static String ZOOM_URL="url";
     private LayoutInflater inflater;
     private Gallery gallery = new Gallery();
     private VolleySingleton volleySingleton;
@@ -106,10 +101,13 @@ public class GalleryAdapter extends BaseAdapter {
         LinearLayout linearLayout = new LinearLayout(mContext);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         Image image = gallery.getImageList().get(position);
-        String imageUrl = image.getProfile();
+        String profileUrl = image.getThumnail();
+        String zoomUrl = image.getProfile();
 
-        NetworkImageView networkImageView = getImage(imageUrl);
-        networkImageView.setTag(imageUrl);
+
+        NetworkImageView networkImageView = getImage(profileUrl);
+        networkImageView.setTag(profileUrl);
+        networkImageView.setOnClickListener(new OnImageClickListener(zoomUrl));
         /*networkImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,10 +116,10 @@ public class GalleryAdapter extends BaseAdapter {
             }
         });*/
 
-        TextView textView = new TextView(mContext);
-        textView.setText("Gourav");
+        /*TextView textView = new TextView(mContext);
+        textView.setText("Gourav");*/
 
-        linearLayout.addView(textView);
+        //linearLayout.addView(textView);
         linearLayout.addView(networkImageView);
 
         return linearLayout;
@@ -142,6 +140,27 @@ public class GalleryAdapter extends BaseAdapter {
             //imageView.setImageResource(mThumbIds[position]);
         }
         return imageView;*/
+    }
+
+    class OnImageClickListener implements View.OnClickListener {
+
+        String zoomUrl;
+        //Gallery gallery;
+
+        // constructor
+        public OnImageClickListener(String url) {
+            this.zoomUrl = url;
+        }
+
+        @Override
+        public void onClick(View v) {
+            // on selecting grid view image
+            // launch full screen activity
+            Intent i = new Intent(mContext, FullScreenViewActivity.class);
+            i.putExtra(ZOOM_URL, zoomUrl);
+            mContext.startActivity(i);
+        }
+
     }
 
     @NonNull
@@ -176,7 +195,7 @@ public class GalleryAdapter extends BaseAdapter {
     }*/
 
     public Integer[] mThumbIds = {
-           R.mipmap.dog,
+            R.mipmap.dog,
             R.mipmap.ic_launcher,
             R.mipmap.ic_launcher,
             R.mipmap.ic_launcher,

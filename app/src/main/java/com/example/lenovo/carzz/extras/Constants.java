@@ -5,4 +5,6 @@ package com.example.lenovo.carzz.extras;
  */
 public interface Constants {
     String NA = "NA";
+    int NUM_OF_COLUMNS = 3;
+    int GRID_PADDING=8;
 }
