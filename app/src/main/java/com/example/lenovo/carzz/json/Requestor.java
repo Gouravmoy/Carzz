@@ -19,7 +19,7 @@ import java.util.concurrent.TimeoutException;
  * Created by lenovo on 2/22/2016.
  */
 public class Requestor {
-    public static JSONArray sendGalleryRequest(RequestQueue requestQueue, String url) {
+    public static JSONArray sendGETRequest(RequestQueue requestQueue, String url) {
         JSONArray response = null;
         RequestFuture<JSONArray> requestFuture = RequestFuture.newFuture();
         //url = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=ny97sdcpqetasj8a4v2na8va&limit=30";
@@ -38,4 +38,6 @@ public class Requestor {
         }
         return response;
     }
+
+
 }

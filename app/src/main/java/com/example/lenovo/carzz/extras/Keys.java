@@ -11,6 +11,13 @@ public interface Keys {
         public static final String KEY_GALLERY_THUMBNAIL = "thumbnail";
         public static final String KEY_GALLERY_PROFILE = "profile";
 
+        public static final String KEY_MODEL_ID = "model_id";
+        public static final String KEY_MODEL_NAME = "model_name";
+        public static final String KEY_MODEL_COST = "cost";
+        public static final String KEY_MODEL_SPEC_DETAILS = "spec_details";
+        public static final String KEY_DESCRIPTION = "description";
+        public static final String KEY_MODEL_IMAGES = "image_url";
+
         /*public static final String KEY_AUDIENCE_SCORE = "audience_score";
         public static final String KEY_SYNOPSIS = "synopsis";
         public static final String KEY_POSTERS = "posters";

@@ -155,9 +155,9 @@ public class galleryFragment extends Fragment implements GalleryLoadedListner, S
         float padding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 Constants.GRID_PADDING, r.getDisplayMetrics());
 
-        columnWidth = (int) ((Utils.getScreenWidth() - ((Constants.NUM_OF_COLUMNS + 1) * padding)) / Constants.NUM_OF_COLUMNS);
+        columnWidth = (int) ((Utils.getScreenWidth() - ((Constants.GALLERY_NUM_OF_COLUMNS + 1) * padding)) / Constants.GALLERY_NUM_OF_COLUMNS);
 
-        galleryGridView.setNumColumns(Constants.NUM_OF_COLUMNS);
+        galleryGridView.setNumColumns(Constants.GALLERY_NUM_OF_COLUMNS);
         galleryGridView.setColumnWidth(columnWidth);
         galleryGridView.setStretchMode(GridView.NO_STRETCH);
         galleryGridView.setPadding((int) padding, (int) padding, (int) padding,

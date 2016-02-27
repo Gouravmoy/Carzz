@@ -10,4 +10,8 @@ public class EndPoints {
     public static String getGalleryRequestUrl() {
         return UrlEndpoints.URL_CARS_GALLERY;
     }
+
+    public static String getModelRequestUrl() {
+        return UrlEndpoints.URL_CARS_MODELS;
+    }
 }

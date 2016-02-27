@@ -5,17 +5,26 @@ import com.example.lenovo.carzz.json.EndPoints;
 import com.example.lenovo.carzz.json.Parser;
 import com.example.lenovo.carzz.json.Requestor;
 import com.example.lenovo.carzz.pojo.Gallery;
+import com.example.lenovo.carzz.pojo.Models;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lenovo on 2/22/2016.
  */
 public class CarsUtils {
     public static Gallery loadGalleryImages(RequestQueue requestQueue) {
-        JSONArray response = Requestor.sendGalleryRequest(requestQueue, EndPoints.getGalleryRequestUrl());
+        JSONArray response = Requestor.sendGETRequest(requestQueue, EndPoints.getGalleryRequestUrl());
         Gallery gallery = Parser.parseGalleryJson(response);
         return gallery;
+    }
+
+    public static ArrayList<Models> getModels(RequestQueue requestQueue) {
+        JSONArray response = Requestor.sendGETRequest(requestQueue, EndPoints.getModelRequestUrl());
+        ArrayList<Models> modelsList = Parser.parseModelsJson(response);
+        return modelsList;
     }
 }
