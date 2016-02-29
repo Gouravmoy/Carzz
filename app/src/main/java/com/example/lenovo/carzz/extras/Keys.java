@@ -18,15 +18,15 @@ public interface Keys {
         public static final String KEY_DESCRIPTION = "description";
         public static final String KEY_MODEL_IMAGES = "image_url";
 
-        /*public static final String KEY_AUDIENCE_SCORE = "audience_score";
-        public static final String KEY_SYNOPSIS = "synopsis";
-        public static final String KEY_POSTERS = "posters";
-        public static final String KEY_THUMBNAIL = "thumbnail";
-        public static final String KEY_LINKS = "links";
-        public static final String KEY_SELF = "self";
-        public static final String KEY_CAST = "cast";
-        public static final String KEY_REVIEWS = "reviews";
-        public static final String KEY_SIMILAR = "similar";*/
+        public static final String KEY_FEATURE_ID = "feature_id";
+        public static final String KEY_FEATURE_CATAGORY = "catagory";
+        public static final String KEY_FEATURE_CATAGORY_NAME = "name";
+        public static final String KEY_FEATURE_CATAGORY_FEATURES = "features";
+        public static final String KEY_FEATURE_CATAGORY_FEATURES_TITLE = "title";
+        public static final String KEY_FEATURE_CATAGORY_FEATURES_SYNOPSIS = "synopsis";
+        public static final String KEY_FEATURE_CATAGORY_FEATURES_IMAGES = "image_url";
+
+
     }
 
 }

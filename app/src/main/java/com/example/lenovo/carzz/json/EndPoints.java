@@ -14,4 +14,8 @@ public class EndPoints {
     public static String getModelRequestUrl() {
         return UrlEndpoints.URL_CARS_MODELS;
     }
+
+    public static String getFeaturesRequestUrl() {
+        return UrlEndpoints.URL_CARS_FEATURES;
+    }
 }

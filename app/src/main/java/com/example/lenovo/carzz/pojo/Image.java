@@ -16,6 +16,8 @@ public class Image implements Parcelable {
     }
 
     public Image() {
+        thumnail = "";
+        profile = "";
     }
 
     public static final Creator<Image> CREATOR = new Creator<Image>() {
