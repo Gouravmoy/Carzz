@@ -8,8 +8,8 @@ public interface Keys {
         public static final String KEY_CARS_ID = "cars_id";
         public static final String KEY_CAR_NAME = "car_name";
         public static final String KEY_GALLERY = "gallery_images";
-        public static final String KEY_GALLERY_THUMBNAIL = "thumbnail";
-        public static final String KEY_GALLERY_PROFILE = "profile";
+        public static final String KEY_IMAGE_THUMBNAIL = "thumbnail";
+        public static final String KEY_IMAGE_PROFILE = "profile";
 
         public static final String KEY_MODEL_ID = "model_id";
         public static final String KEY_MODEL_NAME = "model_name";
@@ -26,7 +26,15 @@ public interface Keys {
         public static final String KEY_FEATURE_CATAGORY_FEATURES_SYNOPSIS = "synopsis";
         public static final String KEY_FEATURE_CATAGORY_FEATURES_IMAGES = "image_url";
 
-
+        public static final String KEY_SPEC_ID = "spec_id";
+        public static final String KEY_SPEC_CAR_ID = "cars_id";
+        public static final String KEY_SPECS = "specs";
+        public static final String KEY_SPEC_CATAGORY = "catagory";
+        public static final String KEY_SPEC_CATAGORY_NAME = "name";
+        public static final String KEY_SPEC_CATAGORY_SPEC_DETAILS = "spec_details";
+        public static final String KEY_SPEC_CATAGORY_SPEC_DETAILS_HINT = "hint";
+        public static final String KEY_SPEC_CATAGORY_SPEC_DETAILS_SPEC = "spec";
+        public static final String KEY_SPEC_CATAGORY_SPEC_DETAILS_DESCRIPTION = "description";
+        public static final String KEY_SPEC_IMAGES = "image_url";
     }
-
 }

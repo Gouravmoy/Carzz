@@ -7,6 +7,7 @@ import com.example.lenovo.carzz.json.Requestor;
 import com.example.lenovo.carzz.pojo.Features;
 import com.example.lenovo.carzz.pojo.Gallery;
 import com.example.lenovo.carzz.pojo.Models;
+import com.example.lenovo.carzz.pojo.Specs;
 
 import org.json.JSONArray;
 
@@ -33,5 +34,11 @@ public class CarsUtils {
         JSONArray response = Requestor.sendGETRequest(requestQueue, EndPoints.getFeaturesRequestUrl());
         Features features = Parser.parseFeaturesJson(response);
         return features;
+    }
+
+    public static Specs getSpecs(RequestQueue requestQueue) {
+        JSONArray response = Requestor.sendGETRequest(requestQueue, EndPoints.getSpecRequestUrl());
+        Specs spec = Parser.parseSpecsJson(response);
+        return spec;
     }
 }

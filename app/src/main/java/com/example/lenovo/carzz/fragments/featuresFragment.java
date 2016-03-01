@@ -91,13 +91,19 @@ public class featuresFragment extends Fragment implements FeaturesLoadedListner,
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeGallery);
         swipeRefreshLayout.setOnRefreshListener(this);
         if (savedInstanceState != null) {
-            //featuresArrayList = savedInstanceState.getParcelableArrayList(STATE_FEATURES);
+            features = savedInstanceState.getParcelable(STATE_FEATURES);
         } else {
             new TaskLoadFeatures(this).execute();
         }
         expandableListView = (ExpandableListView) view.findViewById(R.id.mainList);
         expandableListView.setAdapter(new ParentLevel(MyApplication.getAppContext(), features));
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(STATE_FEATURES, features);
     }
 
     private void handelVolleyError(VolleyError error) {

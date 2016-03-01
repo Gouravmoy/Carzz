@@ -18,4 +18,9 @@ public class EndPoints {
     public static String getFeaturesRequestUrl() {
         return UrlEndpoints.URL_CARS_FEATURES;
     }
+
+    public static String getSpecRequestUrl() {
+        return UrlEndpoints.URL_CARS_SPEC;
+    }
+
 }
