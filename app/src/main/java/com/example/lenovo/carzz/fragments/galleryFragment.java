@@ -1,5 +1,6 @@
 package com.example.lenovo.carzz.fragments;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import com.android.volley.ParseError;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.example.lenovo.carzz.MyApplication;
 import com.example.lenovo.carzz.R;
 import com.example.lenovo.carzz.adapters.GalleryAdapter;
 import com.example.lenovo.carzz.callbacks.GalleryLoadedListner;
@@ -25,6 +28,8 @@ import com.example.lenovo.carzz.extras.Constants;
 import com.example.lenovo.carzz.extras.Utils;
 import com.example.lenovo.carzz.pojo.Gallery;
 import com.example.lenovo.carzz.tasks.TaskLoadCarsGallery;
+
+import static com.example.lenovo.carzz.extras.Constants.GALLERY_NUM_OF_COLUMNS;
 
 public class galleryFragment extends Fragment implements GalleryLoadedListner, SwipeRefreshLayout.OnRefreshListener {
     // TODO: Rename parameter arguments, choose names that match
@@ -155,9 +160,13 @@ public class galleryFragment extends Fragment implements GalleryLoadedListner, S
         float padding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 Constants.GRID_PADDING, r.getDisplayMetrics());
 
-        columnWidth = (int) ((Utils.getScreenWidth() - ((Constants.GALLERY_NUM_OF_COLUMNS + 1) * padding)) / Constants.GALLERY_NUM_OF_COLUMNS);
 
-        galleryGridView.setNumColumns(Constants.GALLERY_NUM_OF_COLUMNS);
+        float scalefactor = getResources().getDisplayMetrics().density * 180;
+        int number = Utils.getScreenWidth();
+        int columns = (int) ((float) number / (float) scalefactor);
+        columnWidth = (int) ((Utils.getScreenWidth() - ((columns + 1) * padding)) / columns);
+
+        galleryGridView.setNumColumns(columns);
         galleryGridView.setColumnWidth(columnWidth);
         galleryGridView.setStretchMode(GridView.NO_STRETCH);
         galleryGridView.setPadding((int) padding, (int) padding, (int) padding,

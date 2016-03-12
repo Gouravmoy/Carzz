@@ -60,31 +60,34 @@ public class Parser {
         List<Image> imageList = new ArrayList<Image>();
         Image image;
         JSONObject response;
-        for (int i = 0; i < responseArray.length(); i++) {
-            try {
-                response = responseArray.getJSONObject(i);
-                if (response != null) {
-                    if (response.length() > 0) {
-                        try {
-                            if (contains(response, KEY_CAR_NAME)) {
-                                carName = response.getString(KEY_CAR_NAME);
+        if (responseArray != null) {
+            for (int i = 0; i < responseArray.length(); i++) {
+                try {
+                    response = responseArray.getJSONObject(i);
+                    if (response != null) {
+                        if (response.length() > 0) {
+                            try {
+                                if (contains(response, KEY_CAR_NAME)) {
+                                    carName = response.getString(KEY_CAR_NAME);
+                                }
+                                if (contains(response, KEY_CARS_ID)) {
+                                    carId = response.getString(KEY_CARS_ID);
+                                }
+                                getImagesFromJSON(imageList, response, KEY_GALLERY, true);
+                            } catch (Exception err) {
+                                err.printStackTrace();
                             }
-                            if (contains(response, KEY_CARS_ID)) {
-                                carId = response.getString(KEY_CARS_ID);
-                            }
-                            getImagesFromJSON(imageList, response, KEY_GALLERY, true);
-                        } catch (Exception err) {
-                            err.printStackTrace();
+                            gallery.setId(carId);
+                            gallery.setCarName(carName);
+                            gallery.setImageList(imageList);
                         }
-                        gallery.setId(carId);
-                        gallery.setCarName(carName);
-                        gallery.setImageList(imageList);
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
+
         return gallery;
     }
 
