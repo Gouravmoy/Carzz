@@ -37,4 +37,6 @@ dependencies {
     compile 'com.telly:mrvector:0.2.0'
     compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     compile 'me.tatarka.support:jobscheduler:0.1.1'
+    compile 'com.estimote:sdk:0.9.5'
+    compile 'com.android.support:design:23.1.1'
 }

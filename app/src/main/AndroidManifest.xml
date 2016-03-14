@@ -34,6 +34,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activites.CarsActivity" />
         </activity>
+        <activity android:name=".activites.EddyStoneActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activites.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

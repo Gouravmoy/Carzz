@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.lenovo.carzz.extras.Constants.NA;
+import static com.example.lenovo.carzz.extras.Keys.EndpointBoxOffice.KEY_BEACON_CAR_ID;
 import static com.example.lenovo.carzz.extras.Keys.EndpointBoxOffice.KEY_CARS_ID;
 import static com.example.lenovo.carzz.extras.Keys.EndpointBoxOffice.KEY_CAR_NAME;
 import static com.example.lenovo.carzz.extras.Keys.EndpointBoxOffice.KEY_DESCRIPTION;
@@ -216,6 +217,30 @@ public class Parser {
         spec.setImage(imageList.get(0));
         spec.setSpecCatagoryList(specCatagoryList);
         return spec;
+    }
+
+    public static String parseBeaconResponse(JSONArray response) {
+        String carId = "";
+        JSONObject carIdJSON;
+        if (response == null) {
+            carId = "prius";
+        } else {
+            for (int i = 0; i < response.length(); i++) {
+                try {
+                    carIdJSON = response.getJSONObject(i);
+                    if (carIdJSON != null) {
+                        if (carIdJSON.length() > 0) {
+                            if (contains(carIdJSON, KEY_BEACON_CAR_ID)) {
+                                carId = carIdJSON.getString(KEY_BEACON_CAR_ID);
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return carId;
     }
 
     private static ArrayList<SpecCatagory> getSpecCatagory(JSONObject specCatagoryJson) {

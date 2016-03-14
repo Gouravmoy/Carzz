@@ -36,5 +36,9 @@ public interface Keys {
         public static final String KEY_SPEC_CATAGORY_SPEC_DETAILS_SPEC = "spec";
         public static final String KEY_SPEC_CATAGORY_SPEC_DETAILS_DESCRIPTION = "description";
         public static final String KEY_SPEC_IMAGES = "image_url";
+
+        public static final String KEY_BEACON_CAR_ID = "link_id";
+        public static final String KEY_BEACON_INTENT_CAR_ID = "car_id";
+
     }
 }

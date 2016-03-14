@@ -2,7 +2,7 @@
     <string name="app_name">Carzz App</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_cars">Cars Activity</string>
-    <string name="button_send">Fetch Prius Details</string>
+    <string name="button_send">Start EddyStone Scanning</string>
 
     <string-array name="tabs">
         <item>Gallery</item>

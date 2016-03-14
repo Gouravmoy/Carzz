@@ -5,7 +5,11 @@ package com.example.lenovo.carzz.extras;
  */
 public interface Constants {
     String NA = "NA";
+    String separator = "/";
+    String beaconNameSpace = "nameSpace";
+    String beaconInstance = "instanceId";
     int GALLERY_NUM_OF_COLUMNS = 3;
     int MODEL_NUM_OF_COLUMNS = 2;
-    int GRID_PADDING=4;
+    int GRID_PADDING = 4;
+
 }

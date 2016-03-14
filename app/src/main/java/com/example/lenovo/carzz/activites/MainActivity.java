@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendMessage(View view) {
-        Intent carsIntent = new Intent(this, CarsActivity.class);
-        carsIntent.putExtra("car_id", "prius");
-        carsIntent.putExtra("carName", "Toyoto Prius");
-        startActivity(carsIntent);
+        Intent eddyStoneScan = new Intent(this, EddyStoneActivity.class);
+        //carsIntent.putExtra("car_id", "prius");
+        //carsIntent.putExtra("carName", "Toyoto Prius");
+        startActivity(eddyStoneScan);
     }
 }

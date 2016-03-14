@@ -9,11 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.lenovo.carzz.R;
-import com.example.lenovo.carzz.fragments.galleryFragment;
 import com.example.lenovo.carzz.fragments.featuresFragment;
+import com.example.lenovo.carzz.fragments.galleryFragment;
 import com.example.lenovo.carzz.fragments.modelsFragment;
 import com.example.lenovo.carzz.fragments.specsFragment;
 import com.example.lenovo.carzz.views.SlidingTabLayout;
+
+import static com.example.lenovo.carzz.extras.Keys.EndpointBoxOffice.KEY_BEACON_CAR_ID;
 
 public class CarsActivity extends AppCompatActivity {
 
@@ -25,6 +27,7 @@ public class CarsActivity extends AppCompatActivity {
     public final int FEATURES = 1;
     public final int MODELS = 2;
     public final int SPECS = 3;
+    public String carId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class CarsActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        carId = getIntent().getStringExtra(KEY_BEACON_CAR_ID);
         mPager = (ViewPager) findViewById(R.id.pager);
         mAdapter = new MyPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mAdapter);
