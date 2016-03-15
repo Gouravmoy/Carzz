@@ -26,6 +26,7 @@ import com.example.lenovo.carzz.adapters.GalleryAdapter;
 import com.example.lenovo.carzz.callbacks.GalleryLoadedListner;
 import com.example.lenovo.carzz.extras.Constants;
 import com.example.lenovo.carzz.extras.Utils;
+import com.example.lenovo.carzz.logging.L;
 import com.example.lenovo.carzz.pojo.Gallery;
 import com.example.lenovo.carzz.tasks.TaskLoadCarsGallery;
 
@@ -147,6 +148,9 @@ public class galleryFragment extends Fragment implements GalleryLoadedListner, S
     public void onGalleryLoadedlistner(Gallery gallery) {
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
+        }
+        if (gallery.getImageList().size() == 0) {
+            L.t(MyApplication.getAppContext(), "Please switch on the Internet");
         }
         this.gallery = new Gallery();
         this.gallery.setId(gallery.getId());

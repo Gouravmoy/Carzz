@@ -3,8 +3,10 @@ package com.example.lenovo.carzz.tasks;
 import android.os.AsyncTask;
 
 import com.android.volley.RequestQueue;
+import com.example.lenovo.carzz.MyApplication;
 import com.example.lenovo.carzz.callbacks.GalleryLoadedListner;
 import com.example.lenovo.carzz.extras.CarsUtils;
+import com.example.lenovo.carzz.logging.L;
 import com.example.lenovo.carzz.network.VolleySingleton;
 import com.example.lenovo.carzz.pojo.Gallery;
 
@@ -24,6 +26,7 @@ public class TaskLoadCarsGallery extends AsyncTask<Void, Void, Gallery> {
 
     @Override
     protected Gallery doInBackground(Void... params) {
+
         Gallery gallery = CarsUtils.loadGalleryImages(requestQueue);
         return gallery;
     }

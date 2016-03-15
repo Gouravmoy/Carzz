@@ -109,6 +109,7 @@ public class EddyStoneActivity extends AppCompatActivity implements CarIdFetched
         this.carId = carId;
         Intent carIntent = new Intent(this, CarsActivity.class);
         carIntent.putExtra(KEY_BEACON_CAR_ID, carId);
+        L.m("Car Id as Fetched from Back End - " + carId);
         startActivity(carIntent);
 
     }
